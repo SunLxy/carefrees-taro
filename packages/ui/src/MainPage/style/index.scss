@@ -1,0 +1,15 @@
+.carefrees_ui-taro-mian-page {
+  // 默认设置可视高度
+  height: 100vh;
+  // 默认设置可视宽度
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  .carefrees_ui-taro-mian-page_search {
+    box-shadow: var(--nutui-cell-box-shadow, 0 1px 7px 0 #edeef1);
+  }
+  .carefrees_ui-taro-mian-page_body {
+    flex: 1;
+    overflow: auto;
+  }
+}

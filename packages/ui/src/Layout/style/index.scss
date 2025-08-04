@@ -1,0 +1,43 @@
+.carefrees_ui-taro-layout {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  width: 100%;
+  font-size: 12px;
+  white-space: pre-wrap;
+  word-break: break-all;
+  box-sizing: border-box;
+
+  .carefrees_ui-taro-layout_title {
+    padding-right: 4px;
+    box-sizing: border-box;
+    position: relative;
+    white-space: nowrap;
+  }
+  .carefrees_ui-taro-layout_body {
+    box-sizing: border-box;
+    color: var(--nutui-cell-desc-color, var(--nutui-gray-8, #8c8c8c));
+  }
+  &.left {
+    .carefrees_ui-taro-layout_title::after {
+      content: ':';
+      font-size: 12px;
+      padding-left: 1px;
+    }
+  }
+  &.top {
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+  }
+  &.between {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+  &.evenly {
+    .carefrees_ui-taro-layout_body,
+    .carefrees_ui-taro-layout_title {
+      flex: 1;
+    }
+  }
+}

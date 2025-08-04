@@ -1,0 +1,33 @@
+{
+  "name": "@carefrees/taro-utils",
+  "version": "0.0.0",
+  "description": "工具包",
+  "author": "SunLxy <1011771396@qq.com>",
+  "homepage": "",
+  "license": "ISC",
+  "main": "esm/index.js",
+  "types": "esm/index.d.ts",
+  "files": [
+    "esm",
+    "src"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "carefrees-rslib build --esm",
+    "watch": "carefrees-rslib build --watch  --esm"
+  },
+  "dependencies": {
+    "valtio": "~2.1.5"
+  },
+  "devDependencies": {
+    "@tarojs/taro": "4.0.5",
+    "react": "18.2.0",
+    "@types/react": "18.0.0"
+  },
+  "peerDependencies": {
+    "@tarojs/taro": ">=3",
+    "react": ">=17.x"
+  }
+}
