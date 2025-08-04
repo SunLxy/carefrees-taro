@@ -11,10 +11,11 @@
     "watch:plugins": "npm run-script watch --workspace @carefrees/taro-plugins",
     "build:utils": "npm run-script build --workspace @carefrees/taro-utils",
     "watch:utils": "npm run-script watch --workspace @carefrees/taro-utils",
-    "build:all": "npm run build:ui && npm run build:plugins && npm run build:utils",
+    "build:all": " npm run build:utils && npm run build:plugins && npm run build:ui ",
     "build:docs": "npm run-script build --workspace docs",
     "start:docs": "npm run-script dev --workspace docs",
-    "start:react": "npm run-script start --workspace example",
+    "start": "npm run-script dev:h5 --workspace example",
+    "start:weapp": "npm run-script dev:weapp --workspace example",
     "version": "lerna version --force-publish=* --no-changelog --no-git-tag-version --no-push",
     "prettier": "prettier --write \"**/*.{js,jsx,tsx,ts,less,md,json}\""
   },
@@ -27,6 +28,14 @@
     "lint-staged": "~13.0.0",
     "typescript": "~5.9.2"
   },
+  "overrides": {
+    "@types/react": "^18.2.21",
+    "@types/react-dom": "^18.2.7"
+  },
+  "resolutions": {
+    "@types/react": "^18.2.21",
+    "@types/react-dom": "^18.2.7"
+  },
   "lint-staged": {
     "*.{js,jsx,tsx,ts,less,md,json}": "prettier --write"
   },
@@ -34,6 +43,8 @@
     "node": ">=18.0.0"
   },
   "workspaces": [
-    "packages/*"
+    "packages/*",
+    "example",
+    "docs"
   ]
 }

@@ -58,6 +58,7 @@ export default CacheInstance;
 export interface RequestToastDataType extends Omit<Partial<ToastProps>, 'title'> {
   /**唯一值*/
   __id: string | number;
+  title?: React.ReactNode;
 }
 
 export interface ProxyInstanceObjectStoreType extends Object {

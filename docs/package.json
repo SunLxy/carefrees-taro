@@ -1,0 +1,22 @@
+{
+  "name": "docs",
+  "version": "0.0.0",
+  "private": true,
+  "homepage": "https://github.com/SunLxy/carefrees-taro",
+  "description": "文档",
+  "scripts": {
+    "build": "rspress build",
+    "dev": "rspress dev",
+    "preview": "rspress preview"
+  },
+  "dependencies": {
+    "@carefrees/taro-utils": "^0.0.0",
+    "@carefrees/taro-ui": "^0.0.0",
+    "@carefrees/taro-plugins": "^0.0.0"
+  },
+  "devDependencies": {
+    "@rspress/plugin-preview": "~1.43.11",
+    "@types/node": "^18.11.17",
+    "rspress": "^1.40.2"
+  }
+}

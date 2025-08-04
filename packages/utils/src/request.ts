@@ -54,14 +54,22 @@ const requestResponseHandle = (result: Taro.request.SuccessCallbackResult<any>) 
 
 export interface RequestInstanceCreateOptions {
   IP?: string | ((url: string, module?: string, env?: string) => string);
+  proxy?: {
+    dev: Record<string, string | { target: string; pathRewrite: Record<string, string> }>;
+    pro: Record<string, string | { target: string; pathRewrite: Record<string, string> }>;
+  };
 }
 
 export class RequestInstance {
   /**请求IP地址*/
   public IP?: string | ((url: string, module?: string, env?: string) => string);
 
+  /**简单的代理配置*/
+  public proxy?: RequestInstanceCreateOptions['proxy'];
+
   constructor(options: RequestInstanceCreateOptions = {}) {
     this.IP = options.IP;
+    this.proxy = options.proxy;
   }
 
   /**获取请求地址*/
@@ -72,6 +80,41 @@ export class RequestInstance {
     return this.IP || '';
   };
 
+  /**获取转换后地址*/
+  public getProxyHost = (url: string, module?: string) => {
+    let host = '';
+    let _url = url;
+    if (this.proxy) {
+      const proxy = this.proxy[process.env.NODE_ENV === 'production' ? 'pro' : 'dev'];
+      if (proxy)
+        for (const key in proxy) {
+          const rgx = new RegExp(key);
+          const item = proxy[key];
+          if (rgx.test(url) && item) {
+            if (typeof item === 'string') {
+              host = item;
+            } else if (item?.target) {
+              host = item.target;
+              if (item.pathRewrite) {
+                for (const key in item.pathRewrite) {
+                  const rgx = new RegExp(key);
+                  _url = url.replace(rgx, item.pathRewrite[key]);
+                }
+              }
+            }
+            break;
+          }
+        }
+    }
+    if (!host) {
+      host = this.getHttpPath(url, module);
+    }
+    return {
+      host,
+      url: _url,
+    };
+  };
+
   static create(options: RequestInstanceCreateOptions) {
     const request = new RequestInstance(options);
     return request;
@@ -79,17 +122,16 @@ export class RequestInstance {
 
   /**格式化地址*/
   formatUrl = (url: string, module?: string) => {
-    let ip = this.getHttpPath(url, module);
-    if (ip) {
-      ip = ip.replace(/\/$/, '');
+    let { host, url: _url } = this.getProxyHost(url, module);
+    if (host) {
+      host = host.replace(/\/$/, '');
     }
-    const newUrl = `${url}`.replace(/^\//, '').replace(/\/$/, '');
-
+    const newUrl = `${_url}`.replace(/^\//, '').replace(/\/$/, '');
     if (module && process.env.NODE_ENV === 'production') {
       const m = `${module}`.replace(/^\//, '').replace(/\/$/, '');
-      return `${ip}/${m}/${newUrl}`;
+      return `${host}/${m}/${newUrl}`;
     }
-    return `${ip}/${newUrl}`;
+    return `${host}/${newUrl}`;
   };
 
   request = (
@@ -122,7 +164,7 @@ export class RequestInstance {
             });
           }
           options?.fail?.(result);
-          // reject(result)
+          reject(result);
         },
       }).catch((result) => {
         reject(result);

@@ -9,11 +9,11 @@ import { Fragment } from 'react';
 
 const RequestToastItem = (props: { item: RequestToastDataType }) => {
   const { item } = props;
-  const { title, message, type = 'none' } = item;
+  const { title, content, type = 'none' } = item;
   return (
     <View className={`carefrees_ui-taro-request-toast-item ${type}`}>
       {title ? <View className="carefrees_ui-taro-request-toast-item-title">{title}</View> : <Fragment />}
-      {message ? <View className="carefrees_ui-taro-request-toast-item-body">{message}</View> : <Fragment />}
+      {content ? <View className="carefrees_ui-taro-request-toast-item-body">{content}</View> : <Fragment />}
     </View>
   );
 };
