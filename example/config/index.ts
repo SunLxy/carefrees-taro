@@ -24,7 +24,10 @@ export default defineConfig<'webpack5'>(async (merge) => {
       '@': path.join(process.cwd(), '/src'),
     },
     sass: {
-      resource: [require.resolve('@carefrees/taro-utils/assets/variables.scss')],
+      resource: [
+        require.resolve('@nutui/nutui-react-taro/dist/styles/variables.scss'),
+        require.resolve('@carefrees/taro-utils/assets/variables.scss'),
+      ],
     },
     copy: {
       patterns: [],
